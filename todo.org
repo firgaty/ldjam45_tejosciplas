@@ -1,0 +1,17 @@
+* TODO Window manager
+** TODO rendering loop
+** TODO scene selection
+** TODO objects
+** TODO camera
+* TODO Media manager (singletons)
+** TODO audio
+** TODO images - sprites
+** TODO animations
+** TODO fonts, text, text on camera
+* TODO Physics simulator
+** TODO collider
+** TODO gravity
+** TODO lights
+** TODO particles
+* TODO Input management
+* TODO IO File reader
