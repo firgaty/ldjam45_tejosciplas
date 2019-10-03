@@ -1,9 +1,11 @@
+package src;
+
 import javax.swing.*;
 import java.awt.*;
 
-interface Scene {
+public interface Scene {
 
     void render(Graphics g);
 
-    void update(App.IOState st);
+    void update(IOState st);
 }

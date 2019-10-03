@@ -1,3 +1,6 @@
+package src.scenes;
+
+import src.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,7 +14,7 @@ public class TestScene implements Scene {
     /**
      * update and evaluate new state of the game
      */
-    public void update(App.IOState st) {
+    public void update(IOState st) {
         if (st.isSpace()) {
             x = 0;
             y = 0;
@@ -20,7 +23,6 @@ public class TestScene implements Scene {
         x += st.getDt();
         y += st.getDt();
     }
-
 
     /**
      * draw stuff on frame

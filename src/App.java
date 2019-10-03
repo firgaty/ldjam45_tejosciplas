@@ -1,6 +1,10 @@
+package src;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
+import src.scenes.*;
 
 public class App {
 
@@ -23,14 +27,6 @@ public class App {
         public void keyReleased(KeyEvent e) {
             state.space = state.space && e.getKeyCode() != KeyEvent.VK_SPACE;
         }
-    }
-
-    public static class IOState {
-        private long dt;
-        private boolean space;
-
-        public long getDt() { return dt; }
-        public boolean isSpace() { return space; }
     }
 
     private static void init() {
