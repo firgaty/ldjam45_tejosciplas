@@ -8,13 +8,8 @@ public class App {
 
     private static JFrame frame;
     private static JPanel pane;
-
-    // random stuff for testing puposes
-    // representing the current position
-    // of an object in the frame
-    static int x = 0, y = 0, r = 100;
-
-    static boolean space = false;
+    private static IOState state;
+    private static Scene scene;
 
     private static class Keyboard implements KeyListener {
 
@@ -22,18 +17,27 @@ public class App {
         }
 
         public void keyPressed(KeyEvent e) {
-            space = (e.getKeyCode() == KeyEvent.VK_SPACE);
+            state.space = (e.getKeyCode() == KeyEvent.VK_SPACE);
         }
 
         public void keyReleased(KeyEvent e) {
-            space = space && e.getKeyCode() != KeyEvent.VK_SPACE;
-            System.out.println("R " + space);
+            state.space = state.space && e.getKeyCode() != KeyEvent.VK_SPACE;
         }
+    }
+
+    public static class IOState {
+        private long dt;
+        private boolean space;
+
+        public long getDt() { return dt; }
+        public boolean isSpace() { return space; }
     }
 
     private static void init() {
         frame = new JFrame();
         pane  = new JPanel();
+        scene = new TestScene();
+        state = new IOState();
 
         frame.setSize(new Dimension(WIDTH, HEIGHT));
         frame.setContentPane(pane);
@@ -41,40 +45,20 @@ public class App {
         frame.setVisible(true);
     }
 
-    /**
-     * update and evaluate new state of the game
-     */
-    private static void update(long dt) {
-        if (space) {
-            x = 0;
-            y = 0;
-        }
-
-        x += dt;
-        y += dt;
-    }
-
-    /**
-     * draw stuff on frame
-     */
-    private static void render(Graphics g) {
-        g.setColor(Color.red);
-        g.fillOval(x, y, r, r);
-    }
-
     public static void main (String[] args) {
         init();
 
-        long dt = 0, prev = 0,
+        long prev = 0,
             now = System.currentTimeMillis();
 
+        // TODO: sync repaint cycle with frame cycle
         while (true) {
-            prev = now;
-            now  = System.currentTimeMillis();
-            dt   = now - prev;
+            prev       = now;
+            now        = System.currentTimeMillis();
+            state.dt   = (now - prev);
 
-            update(dt);
-            render(pane.getGraphics());
+            scene.update(state);
+            scene.render(pane.getGraphics());
             pane.repaint(0, 0, WIDTH, HEIGHT);
         }
     }
