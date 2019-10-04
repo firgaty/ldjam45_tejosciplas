@@ -18,8 +18,9 @@ public class App {
     private static void init() {
         frame = new JFrame();
         pane  = new JPanel();
-        scene = new TestScene();
         state = new IOState();
+
+        setScene(new LoadScene());
 
         frame.setSize(new Dimension(WIDTH, HEIGHT));
         frame.setContentPane(pane);
@@ -29,6 +30,11 @@ public class App {
         frame.addMouseListener(state);
 
         frame.setVisible(true);
+    }
+
+    public static void setScene(Scene scene) {
+        App.scene = scene;
+        scene.onStart();
     }
 
     public static void main (String[] args) {
@@ -45,12 +51,13 @@ public class App {
             state.dt   = (now - prev);
 
             scene.update(state);
-            scene.render(pane.getGraphics());
 
             if (now - last_repaint > 1000 / 60) {
                 last_repaint = now;
                 pane.repaint(0, 0, WIDTH, HEIGHT);
             }
+
+            scene.render(pane.getGraphics());
         }
     }
 }
