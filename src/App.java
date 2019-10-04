@@ -15,20 +15,6 @@ public class App {
     private static IOState state;
     private static Scene scene;
 
-    private static class Keyboard implements KeyListener {
-
-        public void keyTyped(KeyEvent e) {
-        }
-
-        public void keyPressed(KeyEvent e) {
-            state.space = (e.getKeyCode() == KeyEvent.VK_SPACE);
-        }
-
-        public void keyReleased(KeyEvent e) {
-            state.space = state.space && e.getKeyCode() != KeyEvent.VK_SPACE;
-        }
-    }
-
     private static void init() {
         frame = new JFrame();
         pane  = new JPanel();
@@ -37,14 +23,19 @@ public class App {
 
         frame.setSize(new Dimension(WIDTH, HEIGHT));
         frame.setContentPane(pane);
-        frame.addKeyListener(new Keyboard());
+
+        frame.addKeyListener(state);
+        frame.addMouseMotionListener(state);
+        frame.addMouseListener(state);
+
         frame.setVisible(true);
     }
 
     public static void main (String[] args) {
         init();
+        scene.onStart();
 
-        long prev = 0,
+        long prev = 0, last_repaint = 0,
             now = System.currentTimeMillis();
 
         // TODO: sync repaint cycle with frame cycle
@@ -55,7 +46,11 @@ public class App {
 
             scene.update(state);
             scene.render(pane.getGraphics());
-            pane.repaint(0, 0, WIDTH, HEIGHT);
+
+            if (now - last_repaint > 1000 / 60) {
+                last_repaint = now;
+                pane.repaint(0, 0, WIDTH, HEIGHT);
+            }
         }
     }
 }

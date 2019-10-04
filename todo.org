@@ -1,14 +1,14 @@
-* TODO Window manager
-** TODO rendering loop
-** TODO scene selection
+* Window manager [2/4]
+** DONE rendering loop
+** DONE scene selection
 ** TODO objects
 ** TODO camera
-* TODO Media manager (singletons)
+* Media manager (singletons) [0/4]
 ** TODO audio
 ** TODO images - sprites
 ** TODO animations
 ** TODO fonts, text, text on camera
-* TODO Physics simulator
+* Physics simulator [0/4]
 ** TODO collider
 ** TODO gravity
 ** TODO lights

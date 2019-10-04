@@ -4,6 +4,8 @@ JFLAGS = -g
 
 FILES = src/IOState.java \
 		src/Scene.java \
+		src/GameObject.java \
+		src/Camera.java \
 		src/scenes/TestScene.java \
 		src/App.java
 
