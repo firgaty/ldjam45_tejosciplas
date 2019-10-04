@@ -72,7 +72,6 @@ public class SpriteBuilder {
 
             public BufferedImage next() {
                 Rectangle area = areas.next();
-                try { Thread.sleep(1000); } catch (Exception e) {}
                 return sheet.getSubimage(area.x, area.y,
                                          area.width, area.height);
             }

@@ -14,6 +14,28 @@ public class LoadScene implements Scene {
     private Iterator<BufferedImage> mariosSprite;
     private ArrayList<Mario> marios = new ArrayList<>();
     private ArrayList<Rectangle> areas = new ArrayList<>();
+    private AnimatedMario mario;
+
+    private class AnimatedMario implements GameObject {
+        int x, y;
+        Animation animation;
+
+        public AnimatedMario(Animation anim) {
+            x = 250;
+            y = 250;
+            animation = anim;
+        }
+
+        public int getX() { return x; }
+        public int getY() { return y; }
+        public boolean intersects(Rectangle r) {
+            return r.intersects(new Rectangle(x, y, 100, 100));
+        }
+
+        public void render(Graphics g, int x, int y) {
+            animation.render(g, x, y);
+        }
+    }
 
     private static class Mario implements GameObject {
         static int count = 0;
@@ -67,23 +89,40 @@ public class LoadScene implements Scene {
         if (mariosSprite.hasNext()) {
             marios.add(new Mario(mariosSprite.next()));
             loadCount += 1;
+
+            if (loadCount == 10) {
+                Animation marioAnimation = new Animation();
+
+                ArrayList<BufferedImage> idle = new ArrayList<>();
+                idle.add(marios.get(0).img);
+                idle.add(marios.get(9).img);
+
+                marioAnimation.addAnimation("idle", idle, 500);
+                marioAnimation.setAnimation("idle");
+
+                mario = new AnimatedMario(marioAnimation);
+            }
         }
 
-        if (loadCount == 10) {
-            App.setScene(new TestScene());
-        }
+        // if (loadCount == 10) {
+        //     App.setScene(new TestScene());
+        // }
     }
 
     public void render(Graphics g) {
-        for (Mario m: marios) {
-            m.render(g, 0, 0);
+        if (loadCount < 10) {
+            for (Mario m: marios) {
+                m.render(g, 0, 0);
+            }
+        } else mario.render(g, 0, 0);
+
+        if (loadCount < 10) {
+            g.setColor(Color.black);
+            g.drawRect(100, 100, 100, 30);
+
+            g.setColor(Color.green);
+            g.fillRect(105, 105, (loadCount * 90) / 10, 20);
         }
-
-        g.setColor(Color.black);
-        g.drawRect(100, 100, 100, 30);
-
-        g.setColor(Color.green);
-        g.fillRect(105, 105, (loadCount * 90) / 10, 20);
     }
 
 }

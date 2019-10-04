@@ -3,9 +3,9 @@
 ** DONE scene selection
 ** TODO objects
 ** TODO camera
-* Media manager (singletons) [0/4]
+* Media manager (singletons) [1/4]
 ** TODO audio
-** TODO images - sprites
+** DONE images - sprites
 ** TODO animations
 ** TODO fonts, text, text on camera
 * Physics simulator [0/4]
