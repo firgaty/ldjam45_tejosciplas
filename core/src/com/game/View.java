@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-class View {
+public class View {
     static final int WORLD_WIDTH = 100;
     static final int WORLD_HEIGHT = 100;
 

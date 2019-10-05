@@ -143,28 +143,11 @@ public class LevelScene extends Scene implements ContactListener {
     }
 
     public void beginContact(Contact c) {
-        Array<Body> bodies = new Array<>();
-        world.getBodies(bodies);
-
-        int a = c.getChildIndexA(), b = c.getChildIndexB();
-
-        if (bodies.get(a) == fig.getBody() || bodies.get(b) == fig.getBody()) {
-            System.out.println("start contact");
-            fig.isContact = true;
-        }
-
+       
     }
 
     public void endContact(Contact c) {
-        Array<Body> bodies = new Array<>();
-        world.getBodies(bodies);
-
-        int a = c.getChildIndexA(), b = c.getChildIndexB();
-
-        if (a < bodies.size && bodies.get(a) == fig.getBody() || b < bodies.size && bodies.get(b) == fig.getBody()) {
-            System.out.println("end contact");
-            fig.isContact = false;
-        }
+        
     }
 
     public void preSolve(Contact contact, Manifold oldManifold) {

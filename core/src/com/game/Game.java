@@ -13,35 +13,35 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Scaling;
 
 public class Game extends ApplicationAdapter {
-	View view;
-	Scene mainScene;
+    View view;
+    Scene mainScene;
 
-	@Override
-	public void create() {
-		view = View.get();
-		mainScene = new TestScene();
-	}
+    @Override
+    public void create() {
+        view = View.get();
+        mainScene = new TestScene();
+    }
 
-	@Override
-	public void render() {
-		mainScene.render();
-	}
+    @Override
+    public void render() {
+        mainScene.render();
+    }
 
-	@Override
-	public void resize(int width, int height) {
-		view.viewport.update(width, height);
-	}
+    @Override
+    public void resize(int width, int height) {
+        view.viewport.update(width, height);
+    }
 
-	@Override
-	public void resume() {
-	}
+    @Override
+    public void resume() {
+    }
 
-	@Override
-	public void dispose() {
-		view.batch.dispose();
-	}
+    @Override
+    public void dispose() {
+        view.batch.dispose();
+    }
 
-	@Override
-	public void pause() {
-	}
+    @Override
+    public void pause() {
+    }
 }

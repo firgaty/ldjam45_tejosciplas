@@ -60,13 +60,14 @@ public class Triangle extends Figure {
     public Body getBody() { return body; }
 
     public void onUpJustPressed() {
-        System.out.println("pressed");
-        if (!isContact) return;
-
-        System.out.println("up");
         float angle = body.getAngle() % (2 * (float)Math.PI);
         angle = angle > 0 ? angle : angle + 2 * (float)Math.PI;
-        angle += angleOffset;
+        angle = (angle + angleOffset) % (2 * (float)Math.PI);
+
+        // float theta = Math.acos(View.get().cam.up.x);
+        // if (View.get().cam.up.x * View.get().cam.up.y >= 0)
+
+
         Vector2 pos = body.getPosition();
         body.applyLinearImpulse(100 * (float)Math.cos(angle),
                                 100 * (float)Math.sin(angle),
