@@ -51,14 +51,14 @@ public class Rectangle extends Figure {
 
     // TODO correct when platform is not horizontal
     public void onLeftJustPressed() {
-        if (isContact) {
+        if (canPlay) {
             Vector2 pos = body.getPosition();
             body.applyLinearImpulse(-50, 50, pos.x + 1, pos.y + 1, true);
         }
     }
 
     public void onRightJustPressed() {
-        if (isContact) {
+        if (canPlay) {
             Vector2 pos = body.getPosition();
             body.applyLinearImpulse(50, 50, pos.x - 1, pos.y + 1, true);
         }

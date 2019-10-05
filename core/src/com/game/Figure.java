@@ -17,7 +17,7 @@ import com.game.figures.*;
 
 public abstract class Figure {
 
-    public boolean isContact = false;
+    public boolean canPlay = false;
     public abstract Body getBody();
 
     public void onLeftPressed() {}

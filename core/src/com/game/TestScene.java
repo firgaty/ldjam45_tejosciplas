@@ -42,7 +42,7 @@ class TestScene extends Scene implements ContactListener {
         Pics p = new Pics(world, 7, 25, 50, 1);
 
         fig = new Triangle(world, new Vector2(13, 12.5f));
-        fig.isContact = true;
+        fig.canPlay = false;
     }
 
     public void render() {
@@ -101,36 +101,38 @@ class TestScene extends Scene implements ContactListener {
     }
 
     private void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            fig.onLeftPressed();
-        }
+        if (fig.canPlay) {
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                fig.onLeftPressed();
+            }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            fig.onLeftJustPressed();
-        }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+                fig.onLeftJustPressed();
+            }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            fig.onRightPressed();
-        }
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                fig.onRightPressed();
+            }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            fig.onRightJustPressed();
-        }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+                fig.onRightJustPressed();
+            }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            fig.onUpPressed();
-        }
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+                fig.onUpPressed();
+            }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            fig.onUpJustPressed();
-        }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+                fig.onUpJustPressed();
+            }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            fig.onDownPressed();
-        }
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+                fig.onDownPressed();
+            }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            fig.onDownJustPressed();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+                fig.onDownJustPressed();
+            }
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
@@ -141,50 +143,23 @@ class TestScene extends Scene implements ContactListener {
             figDown();
         }
 
+        fig.canPlay = fig.getBody().getLinearVelocity().len() < 0.1f;
         fig.update();
 
-        view.cam.zoom = MathUtils.clamp(view.cam.zoom, 0.1f, 100 / view.cam.viewportWidth);
+        // view.cam.zoom = MathUtils.clamp(view.cam.zoom, 0.1f, 100 / view.cam.viewportWidth);
 
-        float effectiveViewportWidth = view.cam.viewportWidth * view.cam.zoom;
-        float effectiveViewportHeight = view.cam.viewportHeight * view.cam.zoom;
+        // float effectiveViewportWidth = view.cam.viewportWidth * view.cam.zoom;
+        // float effectiveViewportHeight = view.cam.viewportHeight * view.cam.zoom;
 
-        view.cam.position.x = MathUtils.clamp(view.cam.position.x, effectiveViewportWidth / 2f,
-                100 - effectiveViewportWidth / 2f);
-        view.cam.position.y = MathUtils.clamp(view.cam.position.y, effectiveViewportHeight / 2f,
-                100 - effectiveViewportHeight / 2f);
+        // view.cam.position.x = MathUtils.clamp(view.cam.position.x, effectiveViewportWidth / 2f,
+        //         100 - effectiveViewportWidth / 2f);
+        // view.cam.position.y = MathUtils.clamp(view.cam.position.y, effectiveViewportHeight / 2f,
+        //         100 - effectiveViewportHeight / 2f);
     }
 
-    public void beginContact(Contact c) {
-        Array<Body> bodies = new Array<>();
-        world.getBodies(bodies);
-
-        int a = c.getChildIndexA(),
-            b = c.getChildIndexB();
-
-        if (bodies.get(a) == fig.getBody() ||
-            bodies.get(b) == fig.getBody() ) {
-            System.out.println("start contact");
-            fig.isContact = true;
-        }
-
-    }
-
-    public void endContact(Contact c) {
-        Array<Body> bodies = new Array<>();
-        world.getBodies(bodies);
-
-        int a = c.getChildIndexA(),
-            b = c.getChildIndexB();
-
-        if (a < bodies.size && bodies.get(a) == fig.getBody() ||
-            b < bodies.size && bodies.get(b) == fig.getBody() ) {
-            System.out.println("end contact");
-            fig.isContact = false;
-        }
-    }
-
+    public void beginContact(Contact c) {}
+    public void endContact(Contact c) {}
     public void preSolve(Contact contact, Manifold oldManifold) {}
-
     public void postSolve(Contact contact, ContactImpulse impulse) {}
 
 }
