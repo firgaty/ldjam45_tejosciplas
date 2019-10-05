@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 class View {
     static final int WORLD_WIDTH = 100;
@@ -17,6 +19,7 @@ class View {
     public OrthographicCamera cam;
     public SpriteBatch batch;
     public float rotationSpeed;
+    public Viewport viewport;
 
     private static View instance = null;
 
@@ -26,6 +29,7 @@ class View {
         float h = Gdx.graphics.getHeight();
         cam = new OrthographicCamera(10, 10 * (h / w));
         batch = new SpriteBatch();
+        viewport = new FitViewport(800, 400, cam);
     }
 
     public static View get() {
