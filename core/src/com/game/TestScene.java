@@ -13,57 +13,28 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
+import com.game.figures.*;
+
 class TestScene extends Scene {
     Texture img;
     Box2DDebugRenderer debugRenderer;
+    Figure fig;
 
     public TestScene() {
         super();
         img = new Texture("badlogic.jpg");
         world = new World(new Vector2(0, -10), true);
+        Figure.CIRCLE = new Circle(world);
+
         debugRenderer = new Box2DDebugRenderer();
         setupPhysics();
     }
 
-    private Body dynBody;
-
     private void setupPhysics() {
-        // First we create a body definition
-        BodyDef bodyDef = new BodyDef();
-        // We set our body to dynamic, for something like ground which doesn't move we
-        // would set it to StaticBody
-        bodyDef.type = BodyType.DynamicBody;
-        // Set our body's starting position in the world
-        bodyDef.position.set(10, 50);
-
-        // Create our body in the world using our body definition
-        dynBody = world.createBody(bodyDef);
-
-        // Create a circle shape and set its radius to 6
-        CircleShape circle = new CircleShape();
-        circle.setRadius(2f);
-
-        // Create a fixture definition to apply our shape to
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = circle;
-        fixtureDef.density = 0.5f;
-        fixtureDef.friction = 1.0f;
-        fixtureDef.restitution = 0.6f; // Make it bounce a little bit
-
-        // Create our fixture and attach it to the body
-        Fixture fixture = dynBody.createFixture(fixtureDef);
-
-        // Remember to dispose of any shapes after you're done with them!
-        // BodyDef and FixtureDef don't need disposing, but shapes do.
-        circle.dispose();
-
-        // Create our body definition
-        BodyDef groundBodyDef = new BodyDef();
-        // Set its world position
-        groundBodyDef.position.set(-50, 10);
+        fig = Figure.CIRCLE;
 
         // Create a body from the defintion and add it to the world
-        Body groundBody = world.createBody(groundBodyDef);
+        Body groundBody = world.createBody(fig.getBodyDef());
 
         // Create a polygon shape
         PolygonShape groundBox = new PolygonShape();
@@ -117,13 +88,6 @@ class TestScene extends Scene {
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             view.cam.rotate(view.rotationSpeed, 0, 0, 1);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            dynBody.applyLinearImpulse(-0.1f, 0, 0, 0.5f, true);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            dynBody.applyLinearImpulse(0.1f, 0, 0, 0.5f, true);
-        }
-
 
 
         view.cam.zoom = MathUtils.clamp(view.cam.zoom, 0.1f, 100 / view.cam.viewportWidth);
