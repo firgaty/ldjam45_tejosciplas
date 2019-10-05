@@ -21,9 +21,11 @@ public abstract class Figure {
     RECT = null, TRIANGLE = null,
         CIRCLE = null, CROSS = null;
 
-    protected Body    body;
-    protected Fixture fixture;
-
     public abstract Body getBody();
+
+    public void onLeft() {}
+    public void onRight() {}
+    public void onUp() {}
+    public void onDown() {}
 
 }

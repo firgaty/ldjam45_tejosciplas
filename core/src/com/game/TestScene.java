@@ -19,13 +19,12 @@ class TestScene extends Scene {
 
     Box2DDebugRenderer debugRenderer;
     Figure fig;
+    int figCode = 0;
 
     public TestScene() {
         super();
 
         world = new World(new Vector2(0, -10), true);
-        Figure.CIRCLE = new Circle(world);
-
         debugRenderer = new Box2DDebugRenderer();
 
         // platform
@@ -36,12 +35,10 @@ class TestScene extends Scene {
         PolygonShape groundBox = new PolygonShape();
         groundBox.setAsBox(100, 1);
         groundBody.createFixture(groundBox, 0.0f);
-
-        // Clean up after ourselves
         groundBox.dispose();
 
 
-        fig = Figure.CIRCLE;
+        fig = new Rectangle(world, new Vector2(10, 50));
     }
 
     public void render() {
@@ -58,32 +55,67 @@ class TestScene extends Scene {
         world.step(1/60f, 6, 2);
     }
 
+    private void figUp() {
+        if (figCode < 1) {
+            figCode++;
+            setFig();
+        }
+    }
+
+    private void figDown() {
+        if (figCode > 0) {
+            figCode--;
+            setFig();
+        }
+    }
+
+    private void setFig() {
+        Body body = fig.getBody();
+        Vector2 pos = body.getPosition(),
+            velocity = body.getLinearVelocity();
+        float omega = body.getAngularVelocity();
+
+        world.destroyBody(body);
+
+        switch (figCode) {
+        case 0:
+            fig = new Rectangle(world, pos, velocity, omega);
+            break;
+
+        case 1:
+            fig = new Circle(world, pos, velocity, omega);
+            break;
+
+        default:
+            System.err.println("setFig default !");
+            System.exit(1);
+        }
+    }
+
     private void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.R)) {
-            view.cam.zoom += 0.02;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-            view.cam.zoom -= 0.02;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            view.cam.translate(-3, 0, 0);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            view.cam.translate(3, 0, 0);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            view.cam.translate(0, -3, 0);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            view.cam.translate(0, 3, 0);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-            view.cam.rotate(-view.rotationSpeed, 0, 0, 1);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-            view.cam.rotate(view.rotationSpeed, 0, 0, 1);
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            fig.onLeft();
         }
 
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            fig.onRight();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            fig.onUp();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            fig.onDown();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            figUp();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            figDown();
+        }
 
         view.cam.zoom = MathUtils.clamp(view.cam.zoom, 0.1f, 100 / view.cam.viewportWidth);
 

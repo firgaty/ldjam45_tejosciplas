@@ -15,12 +15,12 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 import com.game.*;
 
-public class Circle extends Figure {
+public class Rectangle extends Figure {
 
     protected Body    body;
     protected Fixture fixture;
 
-    public Circle(World world, Vector2 pos,
+    public Rectangle(World world, Vector2 pos,
                      Vector2 velocity, float angularVelocity) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.DynamicBody;
@@ -30,23 +30,22 @@ public class Circle extends Figure {
         body.applyLinearImpulse(velocity.x, velocity.y, pos.x, pos.y, true);
         body.setAngularVelocity(angularVelocity);
 
-        CircleShape shape = new CircleShape();
-        shape.setRadius(2f);
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(2f, 2f);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 1.0f;
-        fixtureDef.restitution = 0f;
+        fixtureDef.restitution = 0.6f;
 
         fixture = body.createFixture(fixtureDef);
         shape.dispose();
     }
 
-    public Circle(World world, Vector2 pos) {
+    public Rectangle(World world, Vector2 pos) {
         this(world, pos, new Vector2(0, 0), 0);
     }
 
     public Body getBody() { return body; }
-
 }
