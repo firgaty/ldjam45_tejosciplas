@@ -2,12 +2,14 @@ package src;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public interface Scene {
+public interface Scene
+    extends KeyListener, MouseListener, MouseMotionListener  {
 
     void render(Graphics g);
 
-    void update(IOState st);
+    void update(long dt);
 
     default void onStart() {}
     default void onEnd() {}

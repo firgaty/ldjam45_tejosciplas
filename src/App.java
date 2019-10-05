@@ -12,22 +12,20 @@ public class App {
 
     private static JFrame frame;
     private static JPanel pane;
-    private static IOState state;
     private static Scene scene;
 
     private static void init() {
         frame = new JFrame();
         pane  = new JPanel();
-        state = new IOState();
 
-        setScene(new LoadScene());
+        setScene(new TestScene());
 
         frame.setSize(new Dimension(WIDTH, HEIGHT));
         frame.setContentPane(pane);
 
-        frame.addKeyListener(state);
-        frame.addMouseMotionListener(state);
-        frame.addMouseListener(state);
+        frame.addKeyListener(scene);
+        frame.addMouseMotionListener(scene);
+        frame.addMouseListener(scene);
 
         frame.setVisible(true);
     }
@@ -41,16 +39,16 @@ public class App {
         init();
         scene.onStart();
 
-        long prev = 0, last_repaint = 0,
+        long dt, prev = 0, last_repaint = 0,
             now = System.currentTimeMillis();
 
         // TODO: sync repaint cycle with frame cycle
         while (true) {
-            prev       = now;
-            now        = System.currentTimeMillis();
-            state.dt   = (now - prev);
+            prev = now;
+            now  = System.currentTimeMillis();
+            dt   = (now - prev);
 
-            scene.update(state);
+            scene.update(dt);
 
             if (now - last_repaint > 1000 / 60) {
                 last_repaint = now;
