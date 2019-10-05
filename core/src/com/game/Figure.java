@@ -17,15 +17,19 @@ import com.game.figures.*;
 
 public abstract class Figure {
 
-    public static Figure
-    RECT = null, TRIANGLE = null,
-        CIRCLE = null, CROSS = null;
-
+    public boolean isContact = false;
     public abstract Body getBody();
 
-    public void onLeft() {}
-    public void onRight() {}
-    public void onUp() {}
-    public void onDown() {}
+    public void onLeftPressed() {}
+    public void onRightPressed() {}
+    public void onUpPressed() {}
+    public void onDownPressed() {}
+
+    public void onLeftJustPressed() {}
+    public void onRightJustPressed() {}
+    public void onUpJustPressed() {}
+    public void onDownJustPressed() {}
+
+    public void update() {}
 
 }

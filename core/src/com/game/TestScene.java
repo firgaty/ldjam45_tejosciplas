@@ -12,10 +12,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.utils.*;
 
 import com.game.figures.*;
 
-class TestScene extends Scene {
+class TestScene extends Scene implements ContactListener {
 
     Box2DDebugRenderer debugRenderer;
     Figure fig;
@@ -25,6 +26,7 @@ class TestScene extends Scene {
         super();
 
         world = new World(new Vector2(0, -10), true);
+        world.setContactListener(this);
         debugRenderer = new Box2DDebugRenderer();
 
         // platform
@@ -98,28 +100,46 @@ class TestScene extends Scene {
 
     private void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            fig.onLeft();
+            fig.onLeftPressed();
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            fig.onLeftJustPressed();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            fig.onRight();
+            fig.onRightPressed();
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            fig.onRightJustPressed();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            fig.onUp();
+            fig.onUpPressed();
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            fig.onUpJustPressed();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            fig.onDown();
+            fig.onDownPressed();
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            fig.onDownJustPressed();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             figUp();
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             figDown();
         }
+
+        fig.update();
 
         view.cam.zoom = MathUtils.clamp(view.cam.zoom, 0.1f, 100 / view.cam.viewportWidth);
 
@@ -131,4 +151,35 @@ class TestScene extends Scene {
         view.cam.position.y = MathUtils.clamp(view.cam.position.y, effectiveViewportHeight / 2f,
                 100 - effectiveViewportHeight / 2f);
     }
+
+    public void beginContact(Contact c) {
+        Array<Body> bodies = new Array<>();
+        world.getBodies(bodies);
+
+        int a = c.getChildIndexA(),
+            b = c.getChildIndexB();
+
+        if (a < bodies.size && bodies.get(a) == fig.getBody() ||
+            b < bodies.size && bodies.get(b) == fig.getBody() ) {
+            fig.isContact = true;
+        }
+    }
+
+    public void endContact(Contact c) {
+        Array<Body> bodies = new Array<>();
+        world.getBodies(bodies);
+
+        int a = c.getChildIndexA(),
+            b = c.getChildIndexB();
+
+        if (a < bodies.size && bodies.get(a) == fig.getBody() ||
+            b < bodies.size && bodies.get(b) == fig.getBody() ) {
+            fig.isContact = false;
+        }
+    }
+
+    public void preSolve(Contact contact, Manifold oldManifold) {}
+
+    public void postSolve(Contact contact, ContactImpulse impulse) {}
+
 }
