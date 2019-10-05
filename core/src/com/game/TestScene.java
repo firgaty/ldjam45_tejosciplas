@@ -38,7 +38,7 @@ class TestScene extends Scene {
         groundBox.dispose();
 
 
-        fig = new Rectangle(world, new Vector2(10, 50));
+        fig = new Triangle(world, new Vector2(10, 50));
     }
 
     public void render() {
@@ -56,7 +56,7 @@ class TestScene extends Scene {
     }
 
     private void figUp() {
-        if (figCode < 1) {
+        if (figCode < 2) {
             figCode++;
             setFig();
         }
@@ -79,10 +79,14 @@ class TestScene extends Scene {
 
         switch (figCode) {
         case 0:
-            fig = new Rectangle(world, pos, velocity, omega);
+            fig = new Triangle(world, pos, velocity, omega);
             break;
 
         case 1:
+            fig = new Rectangle(world, pos, velocity, omega);
+            break;
+
+        case 2:
             fig = new Circle(world, pos, velocity, omega);
             break;
 
@@ -109,11 +113,11 @@ class TestScene extends Scene {
             fig.onDown();
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
             figUp();
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
             figDown();
         }
 
