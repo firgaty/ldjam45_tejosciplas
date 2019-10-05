@@ -60,8 +60,10 @@ public class Triangle extends Figure {
     public Body getBody() { return body; }
 
     public void onUpJustPressed() {
+        System.out.println("pressed");
         if (!isContact) return;
 
+        System.out.println("up");
         float angle = body.getAngle() % (2 * (float)Math.PI);
         angle = angle > 0 ? angle : angle + 2 * (float)Math.PI;
         angle += angleOffset;

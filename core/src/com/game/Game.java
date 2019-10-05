@@ -11,37 +11,37 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Game extends ApplicationAdapter {
-	View view;
-	Scene mainScene;
+    View view;
+    Scene mainScene;
 
-	@Override
-	public void create() {
-		view = View.get();
-		mainScene = new TestScene();
-	}
+    @Override
+    public void create() {
+        view = View.get();
+        mainScene = new TestScene();
+    }
 
-	@Override
-	public void render() {
-		mainScene.render();
-	}
+    @Override
+    public void render() {
+        mainScene.render();
+    }
 
-	@Override
-	public void resize(int width, int height) {
-		view.cam.viewportWidth = 30f;
-		view.cam.viewportHeight = 30f * height / width;
-		view.cam.update();
-	}
+    @Override
+    public void resize(int width, int height) {
+        view.cam.viewportWidth = 60f;
+        view.cam.viewportHeight = 60f * height / width;
+        view.cam.update();
+    }
 
-	@Override
-	public void resume() {
-	}
+    @Override
+    public void resume() {
+    }
 
-	@Override
-	public void dispose() {
-		view.batch.dispose();
-	}
+    @Override
+    public void dispose() {
+        view.batch.dispose();
+    }
 
-	@Override
-	public void pause() {
-	}
+    @Override
+    public void pause() {
+    }
 }

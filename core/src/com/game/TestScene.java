@@ -31,7 +31,7 @@ class TestScene extends Scene implements ContactListener {
 
         // platform
         BodyDef groundBodyDef = new BodyDef();
-        groundBodyDef.position.set(-50, 10);
+        groundBodyDef.position.set(10, 10);
         Body groundBody = world.createBody(groundBodyDef);
 
         PolygonShape groundBox = new PolygonShape();
@@ -39,8 +39,9 @@ class TestScene extends Scene implements ContactListener {
         groundBody.createFixture(groundBox, 0.0f);
         groundBox.dispose();
 
+        Pics p = new Pics(world, 7, 25, 50, 1);
 
-        fig = new Triangle(world, new Vector2(10, 50));
+        fig = new Triangle(world, new Vector2(11, 12.5f));
     }
 
     public void render() {
@@ -159,10 +160,12 @@ class TestScene extends Scene implements ContactListener {
         int a = c.getChildIndexA(),
             b = c.getChildIndexB();
 
-        if (a < bodies.size && bodies.get(a) == fig.getBody() ||
-            b < bodies.size && bodies.get(b) == fig.getBody() ) {
+        if (bodies.get(a) == fig.getBody() ||
+            bodies.get(b) == fig.getBody() ) {
+            System.out.println("start contact");
             fig.isContact = true;
         }
+
     }
 
     public void endContact(Contact c) {
@@ -174,6 +177,7 @@ class TestScene extends Scene implements ContactListener {
 
         if (a < bodies.size && bodies.get(a) == fig.getBody() ||
             b < bodies.size && bodies.get(b) == fig.getBody() ) {
+            System.out.println("end contact");
             fig.isContact = false;
         }
     }

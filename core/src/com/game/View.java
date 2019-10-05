@@ -12,18 +12,18 @@ import com.badlogic.gdx.math.MathUtils;
 
 class View {
     static final int WORLD_WIDTH = 100;
-	static final int WORLD_HEIGHT = 100;
+    static final int WORLD_HEIGHT = 100;
 
     public OrthographicCamera cam;
-	public SpriteBatch batch;
-	public float rotationSpeed;
+    public SpriteBatch batch;
+    public float rotationSpeed;
 
     private static View instance = null;
 
     private View() {
         rotationSpeed = 0.5f;
         float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
+        float h = Gdx.graphics.getHeight();
         cam = new OrthographicCamera(10, 10 * (h / w));
         batch = new SpriteBatch();
     }
