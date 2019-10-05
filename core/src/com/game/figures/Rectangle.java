@@ -35,9 +35,9 @@ public class Rectangle extends Figure {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 0.5f;
-        fixtureDef.friction = 1.0f;
-        fixtureDef.restitution = 0.6f;
+        fixtureDef.density = 1f;
+        fixtureDef.friction = 0f;
+        fixtureDef.restitution = 0f;
 
         fixture = body.createFixture(fixtureDef);
         shape.dispose();
@@ -48,4 +48,19 @@ public class Rectangle extends Figure {
     }
 
     public Body getBody() { return body; }
+
+    // TODO correct when platform is not horizontal
+    public void onLeftJustPressed() {
+        if (isContact) {
+            Vector2 pos = body.getPosition();
+            body.applyLinearImpulse(-50, 50, pos.x + 1, pos.y + 1, true);
+        }
+    }
+
+    public void onRightJustPressed() {
+        if (isContact) {
+            Vector2 pos = body.getPosition();
+            body.applyLinearImpulse(50, 50, pos.x - 1, pos.y + 1, true);
+        }
+    }
 }

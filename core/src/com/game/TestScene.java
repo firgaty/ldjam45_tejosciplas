@@ -131,11 +131,11 @@ class TestScene extends Scene implements ContactListener {
             fig.onDownJustPressed();
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
             figUp();
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
             figDown();
         }
 
