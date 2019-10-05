@@ -41,7 +41,8 @@ class TestScene extends Scene implements ContactListener {
 
         Pics p = new Pics(world, 7, 25, 50, 1);
 
-        fig = new Triangle(world, new Vector2(11, 12.5f));
+        fig = new Triangle(world, new Vector2(13, 12.5f));
+        fig.isContact = true;
     }
 
     public void render() {
@@ -55,7 +56,7 @@ class TestScene extends Scene implements ContactListener {
         debugRenderer.render(world, view.cam.combined);
         world.setGravity(new Vector2(-10 * view.cam.up.x,
                                      -10 * view.cam.up.y));
-        world.step(1/60f, 6, 2);
+        world.step(1/30f, 6, 2);
     }
 
     private void figUp() {

@@ -36,7 +36,7 @@ public class Rectangle extends Figure {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 1f;
-        fixtureDef.friction = 0f;
+        fixtureDef.friction = 10f;
         fixtureDef.restitution = 0f;
 
         fixture = body.createFixture(fixtureDef);
