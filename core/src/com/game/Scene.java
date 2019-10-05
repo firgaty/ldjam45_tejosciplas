@@ -14,9 +14,9 @@ import com.badlogic.gdx.physics.box2d.World;
 // TODO: mettre le moteur physique dans une classe à part.
 // le world.step() est a appeler en fin de boucle de rendu.
 
-class Scene {
-    View view;
-    World world;
+public class Scene {
+    protected View view;
+    protected World world;
 
     public Scene() {
         view = View.get();
@@ -32,4 +32,11 @@ class Scene {
     // TODO: à dégager et à gérer comme il faut, en fonction du péon utilisé.
     private void handleInput() {}
 
+    public View getView() {
+        return view;
+    }
+
+    public World getWorld() {
+        return world;
+    }
 }

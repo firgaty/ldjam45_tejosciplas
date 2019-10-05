@@ -13,25 +13,20 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.*;
+import com.game.LevelScene;
 
-import com.game.figures.*;
-import com.game.*;
-
-public class Level1 extends LevelScene {
-
-    public Level1() {
-        super();
-
-        this.blocks.add(new Block(world, view, 0, 0));
-
-        System.out.println(blocks.toString());
-
-        fig = new Triangle(world, new Vector2(13, 12.5f));
-        fig.canPlay = false;
-
-        debugRenderer = new Box2DDebugRenderer();
-        world.setContactListener(this);
+class LevelBuilder {
+    private LevelScene level;
+    
+    public LevelBuilder(LevelScene level) {
+        this.level = level;
+    }
+    
+    public void buildLine(Vector2 start, Vector2 end ) {
 
     }
 
+    public void buildWall(Vector2 start, Vector2 end) {
+
+    }
 }

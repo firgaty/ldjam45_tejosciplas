@@ -27,9 +27,10 @@ public class View {
         rotationSpeed = 0.5f;
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        cam = new OrthographicCamera(10, 10 * (h / w));
+        cam = new OrthographicCamera(); //800, 400 * (h / w)
         batch = new SpriteBatch();
         viewport = new FitViewport(800, 400, cam);
+        cam.zoom = 0.20f;
     }
 
     public static View get() {

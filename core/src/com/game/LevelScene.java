@@ -17,20 +17,23 @@ import com.badlogic.gdx.utils.*;
 import com.game.figures.*;
 
 public class LevelScene extends Scene implements ContactListener {
+    final static float gravityIntensity = 10;
 
-    Box2DDebugRenderer debugRenderer;
-    Figure fig;
-    int figCode = 0;
-    int startX, startY;
-    Array<Block> blocks;
+
+    protected Box2DDebugRenderer debugRenderer;
+    protected Figure fig;
+    protected int figCode = 0;
+    protected int startX, startY;
+    protected Array<Block> blocks;
 
     public LevelScene() {
         super();
         startX = startY = 0;
         this.blocks = new Array<Block>(254);
+        world = new World(new Vector2(0, -gravityIntensity), true);
     }
 
-    public void render(SpriteBatch batch) {
+    public void render() {
         handleInput();
         view.cam.update();
         view.batch.setProjectionMatrix(view.cam.combined);
@@ -41,7 +44,7 @@ public class LevelScene extends Scene implements ContactListener {
         debugRenderer.render(world, view.cam.combined);
 
         for (Block elem : this.blocks) {
-            elem.render(batch);
+            elem.render(view.batch);
         }
 
         world.setGravity(new Vector2(-10 * view.cam.up.x, -10 * view.cam.up.y));
@@ -156,4 +159,19 @@ public class LevelScene extends Scene implements ContactListener {
     public void postSolve(Contact contact, ContactImpulse impulse) {
     }
 
+    public Figure getFig() {
+        return fig;
+    }
+
+    public int getFigureCode() {
+        return figCode;
+    }
+
+    public Vector2 startPos() {
+        return new Vector2(startX, startY);
+    }
+
+    public Array<Block> getBlocks() {
+        return blocks;
+    }
 }

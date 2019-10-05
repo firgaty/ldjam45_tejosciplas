@@ -162,37 +162,6 @@ class TestScene extends Scene implements ContactListener {
     }
 
     public void beginContact(Contact c) {
-<<<<<<< HEAD
-        Array<Body> bodies = new Array<>();
-        world.getBodies(bodies);
-
-        int a = c.getChildIndexA(), b = c.getChildIndexB();
-
-        if (bodies.get(a) == fig.getBody() || bodies.get(b) == fig.getBody()) {
-            System.out.println("start contact");
-            fig.isContact = true;
-        }
-
-    }
-
-    public void endContact(Contact c) {
-        Array<Body> bodies = new Array<>();
-        world.getBodies(bodies);
-
-        int a = c.getChildIndexA(), b = c.getChildIndexB();
-
-        if (a < bodies.size && bodies.get(a) == fig.getBody() || b < bodies.size && bodies.get(b) == fig.getBody()) {
-            System.out.println("end contact");
-            fig.isContact = false;
-        }
-    }
-
-    public void preSolve(Contact contact, Manifold oldManifold) {
-    }
-
-    public void postSolve(Contact contact, ContactImpulse impulse) {
-    }
-=======
     }
 
     public void endContact(Contact c) {
@@ -200,6 +169,5 @@ class TestScene extends Scene implements ContactListener {
 
     public void preSolve(Contact contact, Manifold oldManifold) {}
     public void postSolve(Contact contact, ContactImpulse impulse) {}
->>>>>>> 65f15a0fcf8ad1ee75198f4872f3eaaf7cdf896f
 
 }
