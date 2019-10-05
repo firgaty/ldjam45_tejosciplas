@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Scaling;
 
 public class Game extends ApplicationAdapter {
     View view;
@@ -27,9 +29,7 @@ public class Game extends ApplicationAdapter {
 
     @Override
     public void resize(int width, int height) {
-        view.cam.viewportWidth = 100f;
-        view.cam.viewportHeight = 100f * height / width;
-        view.cam.update();
+        view.viewport.update(width, height);
     }
 
     @Override
