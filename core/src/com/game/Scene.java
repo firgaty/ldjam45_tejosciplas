@@ -30,8 +30,6 @@ class Scene {
     }
 
     // TODO: à dégager et à gérer comme il faut, en fonction du péon utilisé.
-    private void handleInput() {
-
-    }
+    private void handleInput() {}
 
 }

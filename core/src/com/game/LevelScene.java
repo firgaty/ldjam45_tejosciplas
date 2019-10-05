@@ -16,36 +16,21 @@ import com.badlogic.gdx.utils.*;
 
 import com.game.figures.*;
 
-class TestScene extends Scene implements ContactListener {
+public class LevelScene extends Scene implements ContactListener {
 
     Box2DDebugRenderer debugRenderer;
     Figure fig;
     int figCode = 0;
+    int startX, startY;
+    Array<Block> blocks;
 
-    public TestScene() {
+    public LevelScene() {
         super();
-
-        world = new World(new Vector2(0, -10), true);
-        world.setContactListener(this);
-        debugRenderer = new Box2DDebugRenderer();
-
-        // platform
-        BodyDef groundBodyDef = new BodyDef();
-        groundBodyDef.position.set(10, 10);
-        Body groundBody = world.createBody(groundBodyDef);
-
-        PolygonShape groundBox = new PolygonShape();
-        groundBox.setAsBox(100, 1);
-        groundBody.createFixture(groundBox, 0.0f);
-        groundBox.dispose();
-
-        Pics p = new Pics(world, 7, 25, 50, 1);
-
-        fig = new Triangle(world, new Vector2(13, 12.5f));
-        fig.isContact = true;
+        startX = startY = 0;
+        this.blocks = new Array<Block>(254);
     }
 
-    public void render() {
+    public void render(SpriteBatch batch) {
         handleInput();
         view.cam.update();
         view.batch.setProjectionMatrix(view.cam.combined);
@@ -54,6 +39,11 @@ class TestScene extends Scene implements ContactListener {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         debugRenderer.render(world, view.cam.combined);
+
+        for (Block elem : this.blocks) {
+            elem.render(batch);
+        }
+
         world.setGravity(new Vector2(-10 * view.cam.up.x, -10 * view.cam.up.y));
         world.step(1 / 30f, 6, 2);
     }
