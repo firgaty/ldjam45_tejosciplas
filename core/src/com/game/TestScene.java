@@ -31,7 +31,7 @@ class TestScene extends Scene implements ContactListener {
 
         // platform
         BodyDef groundBodyDef = new BodyDef();
-        groundBodyDef.position.set(10, 10);
+        groundBodyDef.position.set(0, 1);
         Body groundBody = world.createBody(groundBodyDef);
 
         PolygonShape groundBox = new PolygonShape();
@@ -39,7 +39,17 @@ class TestScene extends Scene implements ContactListener {
         groundBody.createFixture(groundBox, 0.0f);
         groundBox.dispose();
 
-        Pics p = new Pics(world, 7, 25, 50, 1);
+        // platform 2
+        groundBodyDef = new BodyDef();
+        groundBodyDef.position.set(25, 10);
+        groundBody = world.createBody(groundBodyDef);
+
+        groundBox = new PolygonShape();
+        groundBox.setAsBox(1, 50);
+        groundBody.createFixture(groundBox, 0.0f);
+        groundBox.dispose();
+
+        Pics p = new Pics(world, 7, 25, 5, 1);
 
         fig = new Triangle(world, new Vector2(13, 12.5f));
         fig.canPlay = false;
@@ -60,7 +70,7 @@ class TestScene extends Scene implements ContactListener {
     }
 
     private void figUp() {
-        if (figCode < 2) {
+        if (figCode < 3) {
             figCode++;
             setFig();
         }
@@ -81,6 +91,8 @@ class TestScene extends Scene implements ContactListener {
 
         world.destroyBody(body);
 
+        System.out.println("mode " + figCode);
+
         switch (figCode) {
         case 0:
             fig = new Triangle(world, pos, velocity, omega);
@@ -92,6 +104,10 @@ class TestScene extends Scene implements ContactListener {
 
         case 2:
             fig = new Circle(world, pos, velocity, omega);
+            break;
+
+        case 3:
+            fig = new Cross(world, pos, velocity, omega);
             break;
 
         default:
@@ -145,20 +161,14 @@ class TestScene extends Scene implements ContactListener {
 
         fig.canPlay = fig.getBody().getLinearVelocity().len() < 0.1f;
         fig.update();
-
-        // view.cam.zoom = MathUtils.clamp(view.cam.zoom, 0.1f, 100 / view.cam.viewportWidth);
-
-        // float effectiveViewportWidth = view.cam.viewportWidth * view.cam.zoom;
-        // float effectiveViewportHeight = view.cam.viewportHeight * view.cam.zoom;
-
-        // view.cam.position.x = MathUtils.clamp(view.cam.position.x, effectiveViewportWidth / 2f,
-        //         100 - effectiveViewportWidth / 2f);
-        // view.cam.position.y = MathUtils.clamp(view.cam.position.y, effectiveViewportHeight / 2f,
-        //         100 - effectiveViewportHeight / 2f);
     }
 
-    public void beginContact(Contact c) {}
-    public void endContact(Contact c) {}
+    public void beginContact(Contact c) {
+    }
+
+    public void endContact(Contact c) {
+    }
+
     public void preSolve(Contact contact, Manifold oldManifold) {}
     public void postSolve(Contact contact, ContactImpulse impulse) {}
 

@@ -14,10 +14,12 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 import com.game.figures.*;
+import java.util.*;
 
 public abstract class Figure {
 
     public boolean canPlay = false;
+    public HashSet<Body> contactWith = new HashSet<>();
     public abstract Body getBody();
 
     public void onLeftPressed() {}

@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 
-class View {
+public class View {
     static final int WORLD_WIDTH = 100;
     static final int WORLD_HEIGHT = 100;
 
