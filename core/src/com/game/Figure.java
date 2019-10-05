@@ -21,6 +21,9 @@ public abstract class Figure {
     RECT = null, TRIANGLE = null,
         CIRCLE = null, CROSS = null;
 
-    public abstract BodyDef getBodyDef();
+    protected Body    body;
+    protected Fixture fixture;
+
+    public abstract Body getBody();
 
 }

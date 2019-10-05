@@ -17,32 +17,29 @@ import com.game.*;
 
 public class Circle extends Figure {
 
-    BodyDef bodyDef;
-
     public Circle(World world) {
-        bodyDef = new BodyDef();
+        BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.DynamicBody;
         bodyDef.position.set(10, 50);
-        Body dynBody = world.createBody(bodyDef);
 
-        CircleShape circle = new CircleShape();
-        circle.setRadius(2f);
+        Body body = world.createBody(bodyDef);
+
+        CircleShape shape = new CircleShape();
+        shape.setRadius(2f);
 
         FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = circle;
+        fixtureDef.shape = shape;
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 1.0f;
         fixtureDef.restitution = 0.6f;
 
-        Fixture fixture = dynBody.createFixture(fixtureDef);
-        circle.dispose();
 
-        BodyDef groundBodyDef = new BodyDef();
-        groundBodyDef.position.set(-50, 10);
+        fixture = body.createFixture(fixtureDef);
+        shape.dispose();
     }
 
-    public BodyDef getBodyDef() {
-        return bodyDef;
+    public Body getBody() {
+        return body;
     }
 
 }

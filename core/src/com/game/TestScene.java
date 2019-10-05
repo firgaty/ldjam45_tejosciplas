@@ -16,36 +16,32 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.game.figures.*;
 
 class TestScene extends Scene {
-    Texture img;
+
     Box2DDebugRenderer debugRenderer;
     Figure fig;
 
     public TestScene() {
         super();
-        img = new Texture("badlogic.jpg");
+
         world = new World(new Vector2(0, -10), true);
         Figure.CIRCLE = new Circle(world);
 
         debugRenderer = new Box2DDebugRenderer();
-        setupPhysics();
-    }
 
-    private void setupPhysics() {
-        fig = Figure.CIRCLE;
+        // platform
+        BodyDef groundBodyDef = new BodyDef();
+        groundBodyDef.position.set(-50, 10);
+        Body groundBody = world.createBody(groundBodyDef);
 
-        // Create a body from the defintion and add it to the world
-        Body groundBody = world.createBody(fig.getBodyDef());
-
-        // Create a polygon shape
         PolygonShape groundBox = new PolygonShape();
-        // Set the polygon shape as a box which is twice the size of our view port and
-        // 20 high
-        // (setAsBox takes half-width and half-height as arguments)
         groundBox.setAsBox(100, 1);
-        // Create a fixture from our polygon shape and add it to our ground body
         groundBody.createFixture(groundBox, 0.0f);
+
         // Clean up after ourselves
         groundBox.dispose();
+
+
+        fig = Figure.CIRCLE;
     }
 
     public void render() {
@@ -55,11 +51,10 @@ class TestScene extends Scene {
 
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        // view.batch.begin();
-        // // view.batch.draw(img, 0, 0);
-        // view.batch.end();
+
         debugRenderer.render(world, view.cam.combined);
-        world.setGravity(new Vector2(-10 * view.cam.up.x, -10 * view.cam.up.y));
+        world.setGravity(new Vector2(-10 * view.cam.up.x,
+                                     -10 * view.cam.up.y));
         world.step(1/60f, 6, 2);
     }
 

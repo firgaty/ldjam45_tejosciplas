@@ -18,7 +18,6 @@ class Scene {
     View view;
     World world;
 
-
     public Scene() {
         view = View.get();
         view.batch = new SpriteBatch();
@@ -27,12 +26,12 @@ class Scene {
     void render() {
         // TODO: ceci est un test, reste à pauffiner.
         handleInput();
-		
+
     }
 
     // TODO: à dégager et à gérer comme il faut, en fonction du péon utilisé.
     private void handleInput() {
-		
-	}
+
+    }
 
 }
